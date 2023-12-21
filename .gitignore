@@ -3,6 +3,12 @@
 /node_modules
 
 
+# Exclude generated content
+/generated/*
+!/generated/.gitkeep
+
+
+
 .env
 
 
