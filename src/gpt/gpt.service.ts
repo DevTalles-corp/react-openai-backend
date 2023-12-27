@@ -7,6 +7,7 @@ import OpenAI from 'openai';
 
 import {
   audioToTextUseCase,
+  imageGenerationUseCase,
   orthographyCheckUseCase,
   prosConsDicusserStreamUseCase,
   prosConsDicusserUseCase,
@@ -14,6 +15,8 @@ import {
   translateUseCase,
 } from './use-cases';
 import {
+  AudioToTextDto,
+  ImageGenerationDto,
   OrthographyDto,
   ProsConsDiscusserDto,
   TextToAudioDto,
@@ -64,9 +67,18 @@ export class GptService {
     return filePath;
   }
 
+  async audioToText(
+    audioFile: Express.Multer.File,
+    audioToTextDto: AudioToTextDto,
+  ) {
+    const { prompt } = audioToTextDto;
 
-  async audioToText( audioFile: Express.Multer.File, prompt?: string ) {
-    return await audioToTextUseCase( this.openai, { audioFile, prompt } );
+    return await audioToTextUseCase(this.openai, { audioFile, prompt });
   }
+
+  async imageGeneration( imageGenerationDto: ImageGenerationDto ) {
+    return imageGenerationUseCase( this.openai, { ...imageGenerationDto } );
+  }
+
 
 }
