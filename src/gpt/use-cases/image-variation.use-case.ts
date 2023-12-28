@@ -15,6 +15,13 @@ export const imageVariationUseCase = async (
   
   const pngImagePath = await downloadImageAsPng( baseImage, true );
 
+  // const response = await openai.images.createVariation({
+  //   model: 'dall-e-2',
+  //   image: fs.createReadStream(pngImagePath),
+  //   n: 1,
+  //   size: '1024x1024',
+  //   response_format: 'url'
+  // });
   const response = await openai.images.createVariation({
     model: 'dall-e-2',
     image: fs.createReadStream(pngImagePath),
