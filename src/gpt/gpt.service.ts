@@ -23,6 +23,7 @@ import {
   TranslateDto,
 } from './dtos';
 
+
 @Injectable()
 export class GptService {
   private openai = new OpenAI({
@@ -77,8 +78,20 @@ export class GptService {
   }
 
   async imageGeneration( imageGenerationDto: ImageGenerationDto ) {
-    return imageGenerationUseCase( this.openai, { ...imageGenerationDto } );
+    return await imageGenerationUseCase( this.openai, { ...imageGenerationDto } );
   }
 
+  getGeneratedImage( fileName: string ) {
+
+    const filePath = path.resolve('./','./generated/images/', fileName);
+    const exists = fs.existsSync( filePath );
+    
+
+    if ( !exists ) {
+      throw new NotFoundException('File not found');
+    }
+
+    return filePath;
+  }
 
 }
